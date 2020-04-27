@@ -1,0 +1,18 @@
+<html>
+<body>
+The color of grass is <b id="result-box"></b>
+</body>
+</html>
+
+<script type="text/javascript">
+    let ajax = new XMLHttpRequest();
+    ajax.open('GET', 'api/getColor/grass', false);
+    ajax.send();
+
+    if (ajax.status !== 200) {
+        alert( ajax.status + ': ' + ajax.statusText );
+    } else {
+        let resultBox = document.getElementById("result-box");
+        resultBox.innerText = JSON.parse(ajax.responseText);
+    }
+</script>

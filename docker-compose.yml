@@ -1,0 +1,31 @@
+version: '3'
+services:
+  nginx-front:
+    image: nginx:1.17.8
+    volumes:
+    - ./code-front:/code
+    - ./docker/nginx-front.conf:/etc/nginx/conf.d/nginx-front.conf
+    networks:
+      net:
+        ipv4_address: 192.168.240.2
+  nginx-back:
+    image: nginx:1.17.8
+    volumes:
+    - ./code-back:/code
+    - ./docker/nginx-back.conf:/etc/nginx/conf.d/nginx-back.conf
+    networks:
+      net:
+        ipv4_address: 192.168.240.3
+  php-back:
+    image: php:7.4-fpm
+    volumes:
+      - ./code-back:/code
+    networks:
+      net:
+        ipv4_address: 192.168.240.4
+networks:
+  net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.240.0/24
